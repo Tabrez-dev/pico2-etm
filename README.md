@@ -136,48 +136,65 @@ graph LR
 
 ### Prerequisites
 - **Hardware**: Raspberry Pi Pico 2 (RP2350)
-- **Debugger**: Any SWD-compatible debug probe
+- **Debugger**: Any SWD-compatible debug probe (Picoprobe, etc.)
+- **Environment**: MSYS2 MinGW64 terminal
 - **Toolchain**: ARM GCC toolchain (`arm-none-eabi-gcc`)
+- **IDE**: VS Code with C/C++ extension
 - **Debug Server**: OpenOCD with RP2350 support
 
-### Build and Flash
+### Build the Firmware
 ```bash
-# Build the firmware
-cd Blinky_Pico2_dual_core_nosdk
-./Build/Build.ps1 ARM  # Windows
-# or
-./Build/Build.sh ARM   # Linux
+# Navigate to build directory
+cd Blinky_Pico2_dual_core_nosdk/Build
 
-# Start OpenOCD (separate terminal)
-openocd -f interface/cmsis-dap.cfg -f target/rp2350.cfg
-
-# Start GDB session
-arm-none-eabi-gdb Build/Blinky_Pico2_dual_core_nosdk.elf
+# Build using make
+make CORE_FAMILY=ARM
 ```
+
+### Start OpenOCD Debug Server
+```bash
+# In MSYS2 MinGW64 terminal, navigate to OpenOCD directory
+cd ~/PICO/openocd
+
+# Start OpenOCD with RP2350 configuration
+src/openocd.exe -f interface/cmsis-dap.cfg -c "adapter speed 5000" -f target/rp2350-rescue.cfg -s tcl
+```
+
+### VS Code Debug Session
+1. **Open** `main.c` in VS Code
+2. **Place cursor** anywhere in the file
+3. **Press F5** to start GDB debug session
+4. **Set breakpoints** before and after the code sections you want to trace
+
+![Breakpoint Setup Example](docs/images/breakpoint-setup.png)
+*Strategic breakpoint placement for ETM trace capture*
 
 ### ETM Tracing Workflow
 ```gdb
-# Connect to target
-target extended-remote localhost:3333
-monitor reset halt
-
-# Load ETM scripts
-source etm_enhanced_trace.gdb
-
-# Set breakpoint and load program
-b main
-load
-run
+# When stopped at first breakpoint, load ETM scripts
+source C:/Users/tabre/Desktop/Pico 2/Blinky_Pico2_dual_core_nosdk/etm_enhanced_trace.gdb
 
 # Start ETM tracing
 etm_start
 
-# Continue execution to capture trace
+# Continue execution to capture trace between breakpoints
 continue
 
-# Save and analyze trace
+# When stopped at second breakpoint, save and analyze
 etm_complete
 ```
+
+### Analysis Results
+After running `etm_complete`, check the `trace/` directory for:
+- `etm_trace.bin` - Raw ETM data
+- `etm_ptm2human.txt` - Decoded instruction trace  
+- `etm_ptm2human_annotated.txt` - Source-mapped trace with C function names
+
+### Troubleshooting
+- **OpenOCD connection issues**: Ensure debug probe is connected and recognized
+- **Build errors**: Verify ARM toolchain is in PATH
+- **ETM trace empty**: Check breakpoint placement around demo functions
+- **Permission errors**: Run MSYS2 terminal as administrator if needed
 
 ## 📈 Analysis Results
 
