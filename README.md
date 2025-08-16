@@ -11,10 +11,7 @@
 This project demonstrates advanced ARM Cortex-M33 instruction tracing using the **Embedded Trace Macrocell (ETM)** on the RP2350 microcontroller. It provides a complete educational platform for understanding real-time program execution flow, branch prediction analysis, and low-level debugging techniques.
 
 ### Key Achievements
-- ✅ **99.7% trace compression efficiency** (110 bytes meaningful data from 32KB buffer)
 - ✅ **Circular buffer optimization** for continuous trace capture
-- ✅ **Flash memory address filtering** (0x10000000-0x10200000 range)
-- ✅ **Cross-platform toolchain** (Windows/Linux compatible)
 - ✅ **Educational analysis tools** with C source mapping
 
 ## 🏗️ System Architecture
@@ -85,11 +82,8 @@ sequenceDiagram
 ## 🛠️ Technical Implementation
 
 ### ETM Configuration
-- **Buffer Size**: 32KB (8192 words) aligned at 0x20040000
+- **Buffer Size**: 32KB (32768 bytes).
 - **DMA Channel**: 12 for high-speed trace capture
-- **Compression**: Branch broadcast enabled, cycle counting disabled
-- **Address Range**: Flash memory only (0x10000000-0x10200000)
-- **Mode**: Circular buffer for continuous capture
 
 ### Power Domain Management
 ```c
@@ -141,7 +135,7 @@ graph LR
 - **Debugger**: Any SWD-compatible debug probe (Picoprobe, etc.)
 - **Environment**: MSYS2 MinGW64 terminal
 - **Toolchain**: ARM GCC toolchain (`arm-none-eabi-gcc`)
-- **IDE**: VS Code with C/C++ extension
+- **IDE**: VS Code with C/C++ extension, cortex-debug
 - **Debug Server**: OpenOCD with RP2350 support
 
 ### Build the Firmware
@@ -198,12 +192,6 @@ After running `etm_complete`, check the `trace/` directory for:
 
 ## 📈 Analysis Results
 
-### Trace Quality Metrics
-- **Data Density**: 0.3% (110 bytes / 32KB buffer)
-- **Instruction Entries**: 30 meaningful trace points
-- **Compression Ratio**: 99.7% efficiency
-- **Synchronization**: Proper Pattern 1 & 3 sync markers
-
 ### Educational Value
 - **Branch Analysis**: Conditional and unconditional branch patterns
 - **Function Calls**: Call/return sequences with parameter passing
@@ -252,10 +240,8 @@ etm_analyze.bat
 - **Configured**: Flash memory address range filtering
 
 ### Software Innovation
-- **Developed**: Circular buffer trace optimization
 - **Created**: Automated analysis pipeline
 - **Built**: Cross-platform educational tools
-- **Achieved**: 99.7% trace compression efficiency
 
 ## 📁 Project Structure
 
