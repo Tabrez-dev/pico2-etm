@@ -1,19 +1,6 @@
-# Build outputs
-Build/
-*.elf
-*.bin
-*.hex
-*.map
-*.lst
-*.o
-*.d
 
-# Trace files
-trace/*.bin
-trace/*.txt
 
 # IDE files
-.vscode/settings.json
 *.swp
 *.swo
 *~
