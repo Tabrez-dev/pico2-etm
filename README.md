@@ -166,7 +166,8 @@ src/openocd.exe -f interface/cmsis-dap.cfg -c "adapter speed 5000" -f target/rp2
 3. **Press F5** to start GDB debug session
 4. **Set breakpoints** before and after the code sections you want to trace
 
-![Breakpoint Setup Example](docs/images/breakpoint-setup.png)
+<img width="829" height="271" alt="image" src="https://github.com/user-attachments/assets/56c4d658-d100-4eb3-b56b-07c35f1a50a1" />
+
 *Strategic breakpoint placement for ETM trace capture*
 
 ### ETM Tracing Workflow
@@ -176,9 +177,6 @@ source C:/Users/tabre/Desktop/Pico 2/Blinky_Pico2_dual_core_nosdk/etm_enhanced_t
 
 # Start ETM tracing
 etm_start
-
-# Continue execution to capture trace between breakpoints
-continue
 
 # When stopped at second breakpoint, save and analyze
 etm_complete
