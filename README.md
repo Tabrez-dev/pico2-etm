@@ -50,9 +50,10 @@ graph TB
     Scripts --> Decoder
     Decoder --> Analyzer
     
-    style ETM fill:#ff9999
-    style SRAM fill:#99ccff
-    style Decoder fill:#99ff99
+    %% GitHub-compatible styling with good contrast
+    style ETM fill:#ffebee,stroke:#d32f2f,stroke-width:2px,color:#000
+    style SRAM fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000
+    style Decoder fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
 ```
 
 ## 🔬 ETM Trace Flow
@@ -125,11 +126,12 @@ graph LR
     C --> D
     D --> E
     
-    style A fill:#ffcccc
-    style B fill:#ccffcc
-    style C fill:#ccccff
-    style D fill:#ffffcc
-    style E fill:#ffccff
+    %% GitHub-compatible styling with good contrast
+    style A fill:#ffebee,stroke:#d32f2f,stroke-width:2px,color:#000
+    style B fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+    style C fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000
+    style D fill:#fff8e1,stroke:#f57c00,stroke-width:2px,color:#000
+    style E fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000
 ```
 
 ## 🚀 Quick Start Guide
