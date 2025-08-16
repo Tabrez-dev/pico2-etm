@@ -213,6 +213,27 @@ After running `etm_complete`, check the `trace/` directory for:
 
 ## 🔧 Advanced Features
 
+### GDB Automation Commands
+```gdb
+# Load ETM scripts and start tracing
+source etm_enhanced_trace.gdb
+etm_start
+
+# Complete workflow: save + decode + annotate
+etm_complete
+```
+
+### PTM2Human Decoder
+```bash
+# Decode raw ETM data to human-readable trace
+ptm2human.exe -t etm_trace.bin > etm_ptm2human.txt
+```
+
+**Decoder Features:**
+- ARM ETM compression protocol support
+- Branch tracking and function call identification
+- Address-to-source mapping integration
+
 ### Automated Analysis Pipeline
 ```bash
 # Complete analysis workflow
