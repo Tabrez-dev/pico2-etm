@@ -11,10 +11,7 @@
 This project demonstrates advanced ARM Cortex-M33 instruction tracing using the **Embedded Trace Macrocell (ETM)** on the RP2350 microcontroller. It provides a complete educational platform for understanding real-time program execution flow, branch prediction analysis, and low-level debugging techniques.
 
 ### Key Achievements
-- ✅ **99.7% trace compression efficiency** (110 bytes meaningful data from 32KB buffer)
 - ✅ **Circular buffer optimization** for continuous trace capture
-- ✅ **Flash memory address filtering** (0x10000000-0x10200000 range)
-- ✅ **Cross-platform toolchain** (Windows/Linux compatible)
 - ✅ **Educational analysis tools** with C source mapping
 
 ## 🏗️ System Architecture
@@ -50,9 +47,10 @@ graph TB
     Scripts --> Decoder
     Decoder --> Analyzer
     
-    style ETM fill:#ff9999
-    style SRAM fill:#99ccff
-    style Decoder fill:#99ff99
+    %% GitHub-compatible styling with good contrast
+    style ETM fill:#ffebee,stroke:#d32f2f,stroke-width:2px,color:#000
+    style SRAM fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000
+    style Decoder fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
 ```
 
 ## 🔬 ETM Trace Flow
@@ -84,11 +82,8 @@ sequenceDiagram
 ## 🛠️ Technical Implementation
 
 ### ETM Configuration
-- **Buffer Size**: 32KB (8192 words) aligned at 0x20040000
+- **Buffer Size**: 32KB (32768 bytes).
 - **DMA Channel**: 12 for high-speed trace capture
-- **Compression**: Branch broadcast enabled, cycle counting disabled
-- **Address Range**: Flash memory only (0x10000000-0x10200000)
-- **Mode**: Circular buffer for continuous capture
 
 ### Power Domain Management
 ```c
@@ -125,11 +120,12 @@ graph LR
     C --> D
     D --> E
     
-    style A fill:#ffcccc
-    style B fill:#ccffcc
-    style C fill:#ccccff
-    style D fill:#ffffcc
-    style E fill:#ffccff
+    %% GitHub-compatible styling with good contrast
+    style A fill:#ffebee,stroke:#d32f2f,stroke-width:2px,color:#000
+    style B fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+    style C fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000
+    style D fill:#fff8e1,stroke:#f57c00,stroke-width:2px,color:#000
+    style E fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000
 ```
 
 ## 🚀 Quick Start Guide
@@ -139,7 +135,7 @@ graph LR
 - **Debugger**: Any SWD-compatible debug probe (Picoprobe, etc.)
 - **Environment**: MSYS2 MinGW64 terminal
 - **Toolchain**: ARM GCC toolchain (`arm-none-eabi-gcc`)
-- **IDE**: VS Code with C/C++ extension
+- **IDE**: VS Code with C/C++ extension, cortex-debug
 - **Debug Server**: OpenOCD with RP2350 support
 
 ### Build the Firmware
@@ -166,7 +162,8 @@ src/openocd.exe -f interface/cmsis-dap.cfg -c "adapter speed 5000" -f target/rp2
 3. **Press F5** to start GDB debug session
 4. **Set breakpoints** before and after the code sections you want to trace
 
-![Breakpoint Setup Example](docs/images/breakpoint-setup.png)
+<img width="829" height="271" alt="image" src="https://github.com/user-attachments/assets/56c4d658-d100-4eb3-b56b-07c35f1a50a1" />
+
 *Strategic breakpoint placement for ETM trace capture*
 
 ### ETM Tracing Workflow
@@ -176,9 +173,6 @@ source C:/Users/tabre/Desktop/Pico 2/Blinky_Pico2_dual_core_nosdk/etm_enhanced_t
 
 # Start ETM tracing
 etm_start
-
-# Continue execution to capture trace between breakpoints
-continue
 
 # When stopped at second breakpoint, save and analyze
 etm_complete
@@ -197,12 +191,6 @@ After running `etm_complete`, check the `trace/` directory for:
 - **Permission errors**: Run MSYS2 terminal as administrator if needed
 
 ## 📈 Analysis Results
-
-### Trace Quality Metrics
-- **Data Density**: 0.3% (110 bytes / 32KB buffer)
-- **Instruction Entries**: 30 meaningful trace points
-- **Compression Ratio**: 99.7% efficiency
-- **Synchronization**: Proper Pattern 1 & 3 sync markers
 
 ### Educational Value
 - **Branch Analysis**: Conditional and unconditional branch patterns
@@ -273,10 +261,8 @@ etm_analyze.bat
 - **Configured**: Flash memory address range filtering
 
 ### Software Innovation
-- **Developed**: Circular buffer trace optimization
 - **Created**: Automated analysis pipeline
 - **Built**: Cross-platform educational tools
-- **Achieved**: 99.7% trace compression efficiency
 
 ## 📁 Project Structure
 
