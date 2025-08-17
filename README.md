@@ -11,8 +11,11 @@
 This project demonstrates advanced ARM Cortex-M33 instruction tracing using the **Embedded Trace Macrocell (ETM)** on the RP2350 microcontroller. It provides a complete educational platform for understanding real-time program execution flow, branch prediction analysis, and low-level debugging techniques.
 
 ### Key Achievements
-- ✅ **Circular buffer optimization** for continuous trace capture
-- ✅ **Educational analysis tools** with C source mapping
+- ✅ **Complete ETM hardware initialization** for RP2350 Cortex-M33
+- ✅ **Automated GDB workflow** with enhanced trace commands
+- ✅ **Source-level trace analysis** with C function mapping
+- ✅ **Educational demo functions** for instruction flow visualization
+- ✅ **Cross-platform analysis pipeline** (Windows/Linux compatible)
 
 https://github.com/user-attachments/assets/1cb3f008-8264-42b0-9f41-8c398d6bb62c
 
@@ -59,26 +62,31 @@ graph TB
 
 ```mermaid
 sequenceDiagram
-    participant App as Demo Application
+    participant User as Developer
+    participant GDB as GDB Session
     participant ETM as ETM Hardware
-    participant Buffer as Trace Buffer
-    participant GDB as GDB + Scripts
-    participant Tools as Analysis Tools
+    participant Buffer as SRAM Buffer
+    participant Scripts as Analysis Scripts
     
-    App->>ETM: Execute demo_function_a()
-    ETM->>ETM: Capture instruction flow
-    ETM->>Buffer: Store compressed trace
-    Note over Buffer: 32KB circular buffer<br/>8192 words @ 0x20040000
+    User->>GDB: etm_start (load trace.gdb)
+    GDB->>ETM: Configure ETM registers
+    GDB->>Buffer: Setup 32KB buffer @ 0x20040000
+    GDB->>ETM: Start instruction tracing
+    Note over ETM: ETM captures all executed<br/>instructions in real-time
     
-    GDB->>Buffer: etm_save command
-    Buffer->>GDB: Raw trace data
-    GDB->>Tools: etm_trace.bin
+    User->>GDB: continue (run demo functions)
+    ETM->>Buffer: Stream compressed trace data
+    Note over Buffer: Circular buffer overwrites<br/>oldest data when full
     
-    Tools->>Tools: ptm2human decode
-    Tools->>Tools: Address-to-source mapping
-    Tools->>App: Annotated trace output
+    User->>GDB: etm_complete (save & analyze)
+    GDB->>Buffer: Read raw trace via SWD
+    GDB->>Scripts: Save etm_trace.bin
     
-    Note over Tools: 110 bytes meaningful data<br/>30 instruction entries
+    Scripts->>Scripts: ptm2human decode
+    Scripts->>Scripts: map_trace_addresses.py
+    Scripts->>User: Annotated source mapping
+    
+    Note over Scripts: Creates 3 files:<br/>raw binary, decoded text,<br/>C source annotated
 ```
 
 ## 🛠️ Technical Implementation
