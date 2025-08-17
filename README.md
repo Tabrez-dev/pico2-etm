@@ -27,7 +27,7 @@ graph TB
         CPU[ARM Cortex-M33 Core]
         ETM[ETM Trace Unit]
         TPIU[Trace Port Interface Unit]
-        SRAM[32KB Trace Buffer<br/>SRAM4 @ 0x20040000]
+        SRAM[32KB Trace Buffer<br/>SRAM4]
     end
     
     subgraph "Debug Interface"
@@ -70,7 +70,7 @@ sequenceDiagram
     
     User->>GDB: etm_start (load trace.gdb)
     GDB->>ETM: Configure ETM registers
-    GDB->>Buffer: Setup 32KB buffer @ 0x20040000
+    GDB->>Buffer: Setup 32KB buffer
     GDB->>ETM: Start instruction tracing
     Note over ETM: ETM captures all executed<br/>instructions in real-time
     
