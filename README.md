@@ -265,14 +265,21 @@ etm_analyze.bat
 ## 🏆 Technical Achievements
 
 ### Hardware Integration
-- **Solved**: RP2350 ETM peripheral access issues
-- **Optimized**: Power domain initialization sequence
-- **Implemented**: Proper CoreSight authentication
-- **Configured**: Flash memory address range filtering
+- **Solved**: RP2350 ETM peripheral access with complete power domain management
+- **Implemented**: CoreSight authentication sequence with proper unlock keys
+- **Configured**: 32KB SRAM4 trace buffer with power-of-2 alignment for DMA ring buffer operation
+- **Optimized**: Clock and reset control for all trace subsystems (PSM, RESETS, CLOCKS)
 
 ### Software Innovation
-- **Created**: Automated analysis pipeline
-- **Built**: Cross-platform educational tools
+- **Created**: Complete automated analysis pipeline (`etm_analyze.bat` + `map_trace_addresses.py`)
+- **Built**: Educational demo functions with rich branching patterns for instruction tracing
+- **Developed**: Enhanced GDB command suite (`etm_enhanced_trace.gdb`) with simplified workflow
+- **Integrated**: PTM2Human decoder with source-level annotation capabilities
+
+  ### Educational Platform
+- **Designed**: Six specialized demo functions (`demo_function_a/b`, `demo_branch_example`, `demo_loop_example`, `demo_recursive_function`, `demo_nested_calls`)
+- **Implemented**: Real-time LED feedback synchronized with trace capture
+- **Established**: Complete toolchain integration (ARM GCC + OpenOCD + GDB + Python analysis)
 
 ## 📁 Project Structure
 
