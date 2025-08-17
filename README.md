@@ -14,6 +14,8 @@ This project demonstrates advanced ARM Cortex-M33 instruction tracing using the 
 - ✅ **Circular buffer optimization** for continuous trace capture
 - ✅ **Educational analysis tools** with C source mapping
 
+https://github.com/user-attachments/assets/1cb3f008-8264-42b0-9f41-8c398d6bb62c
+
 ## 🏗️ System Architecture
 
 ```mermaid
