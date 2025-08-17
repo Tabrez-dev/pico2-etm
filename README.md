@@ -354,7 +354,7 @@ CPU → ETM → TPIU → DMA → SRAM Buffer → SWD → OpenOCD → GDB → Ana
 
 The **funnel** at memory address `0x40147000` acts like a traffic controller - it selects which CPU core's ETM data gets sent to the trace system. 
 
-- **CPUID register(CPU Identification register): Tells us which core we're running on (0 or 1)
+- **CPUID register(CPU Identification register)**: Tells us which core we're running on (0 or 1)
 - **Funnel configuration**: 
   - Bit 1 = Core 0 ETM input
   - Bit 3 = Core 1 ETM input
