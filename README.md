@@ -27,7 +27,7 @@ graph TB
         CPU[ARM Cortex-M33 Core]
         ETM[ETM Trace Unit]
         TPIU[Trace Port Interface Unit]
-        SRAM[32KB Trace Buffer<br/>SRAM4]
+        SRAM[8KB Trace Buffer<br/>SRAM4]
     end
     
     subgraph "Debug Interface"
@@ -70,7 +70,7 @@ sequenceDiagram
     
     User->>GDB: etm_start (load trace.gdb)
     GDB->>ETM: Configure ETM registers
-    GDB->>Buffer: Setup 32KB buffer
+    GDB->>Buffer: Setup 8KB buffer
     GDB->>ETM: Start instruction tracing
     Note over ETM: ETM captures all executed<br/>instructions in real-time
     
@@ -92,7 +92,7 @@ sequenceDiagram
 ## 🛠️ Technical Implementation
 
 ### ETM Configuration
-- **Buffer Size**: 32KB (32768 bytes).
+- **Buffer Size**: 8KB.
 - **DMA Channel**: 12 for high-speed trace capture
 
 ### Power Domain Management
@@ -267,7 +267,7 @@ etm_analyze.bat
 ### Hardware Integration
 - **Solved**: RP2350 ETM peripheral access with complete power domain management
 - **Implemented**: CoreSight authentication sequence with proper unlock keys
-- **Configured**: 32KB SRAM4 trace buffer with power-of-2 alignment for DMA ring buffer operation
+- **Configured**: 8KB SRAM4 trace buffer with power-of-2 alignment for DMA ring buffer operation
 - **Optimized**: Clock and reset control for all trace subsystems (PSM, RESETS, CLOCKS)
 
 ### Software Innovation
@@ -344,7 +344,7 @@ CPU → ETM → TPIU → DMA → SRAM Buffer → SWD → OpenOCD → GDB → Ana
 2. **ETM**: Hardware unit that "watches" every instruction and compresses the data
 3. **TPIU (Trace Port Interface Unit)**: Formats the compressed data into packets
 4. **DMA**: High-speed transfer to memory buffer without CPU involvement
-5. **SRAM Buffer**: 32KB storage area at memory address 0x20040000
+5. **SRAM Buffer**: 8KB storage area at memory address 0x20040000
 6. **SWD (Serial Wire Debug)**: Physical connection to your debug probe
 7. **OpenOCD**: Software that talks to the debug probe
 8. **GDB**: Debugger that reads the trace data
@@ -362,18 +362,18 @@ The **funnel** at memory address `0x40147000` acts like a traffic controller - i
 
 *Think of it like having two security cameras (Core 0 and Core 1 ETM units) but only one recording device (TPIU) - the funnel decides which camera feeds into the recorder.*
 
-### What happens when the 32KB buffer fills up?
+### What happens when the 8KB buffer fills up?
 
 We support two modes:
 
 **Linear Mode** (default for education):
 - Tracing stops when buffer is full
-- Captures the first 32KB of execution
+- Captures the first 8KB of execution
 - Good for analyzing specific functions
 
 **Circular Mode** (endless tracing):
 - Buffer acts like a ring - new data overwrites oldest data
-- Always captures the most recent 32KB of execution
+- Always captures the most recent 8KB of execution
 - Requires buffer sizes of 8KB, 16KB, or 32KB with special memory alignment
 
 ### How accurate is the timing information?
@@ -468,7 +468,7 @@ Each demo function demonstrates specific concepts:
 **Educational Focus**: This project is optimized for learning, not production debugging.
 
 **Limitations for production use**:
-- 32KB buffer size (commercial tools use MB/GB)
+- 8KB buffer size (commercial tools use MB/GB)
 - Single core focus
 - Windows-centric tooling
 - Manual analysis workflow
@@ -529,7 +529,7 @@ This shows **where in memory** each instruction was executed:
 
 **Ring Buffer Implementation**:
 - Buffer must be power-of-2 size (8KB, 16KB, 32KB)
-- Buffer address must be aligned to its size (e.g., 32KB buffer at 0x20040000)
+- Buffer address must be aligned to its size (e.g., 8KB buffer at 0x20040000)
 - DMA hardware automatically wraps around when it reaches the end
 - Always contains the most recent execution history
 
