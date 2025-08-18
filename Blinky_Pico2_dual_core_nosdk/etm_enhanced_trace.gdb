@@ -8,7 +8,7 @@ define etm_quick_start
     printf "Starting ETM trace for function analysis...\n"
     
     # Load the core trace system
-    source C:/Users/tabre/Desktop/Pico 2/Blinky_Pico2_dual_core_nosdk/etm-scripts/trace.gdb
+    source etm-scripts/trace.gdb
     
     # Standard configuration for function tracing
     # Buffer: 8KB, DMA channel 12, cycle counting off, branch broadcast on
@@ -69,7 +69,7 @@ define etm_start
     dont-repeat
     # Clear old trace files from both locations to ensure fresh capture
     shell rm -f trace/etm_trace.bin trace/etm_ptm2human.txt trace/etm_ptm2human_annotated.txt ../trace/etm_trace.bin 2>/dev/null || del /Q trace\etm_trace.bin trace\etm_ptm2human.txt trace\etm_ptm2human_annotated.txt ..\trace\etm_trace.bin 2>nul || echo "Clearing old traces..."
-    source C:/Users/tabre/Desktop/Pico 2/Blinky_Pico2_dual_core_nosdk/etm-scripts/trace.gdb
+    source etm-scripts/trace.gdb
     trc_setup 0x20040000 32768 12 0 1 1 0
     trc_start 
     printf "✓ Tracing started (circular buffer)\n"
@@ -85,7 +85,7 @@ end
 # Endless (circular buffer) start helper
 define etm_start_endless
     dont-repeat
-    source C:/Users/tabre/Desktop/Pico 2/Blinky_Pico2_dual_core_nosdk/etm-scripts/trace.gdb
+    source etm-scripts/trace.gdb
     # For endless mode, it's recommended to disable the formatter
     # Buffer: 8KB aligned at 0x20040000, DMA 12, cycle counting off, BB on, formatter off, no timestamp
     trc_setup 0x20040000 8192 12 0 1 0 0
@@ -111,7 +111,7 @@ define etm_analyze
     dont-repeat
     printf "🔍 Running ETM trace analysis...\n"
     # Use dedicated batch script to handle working directory and paths properly
-    shell "c:/Users/tabre/Desktop/Pico 2/Blinky_Pico2_dual_core_nosdk/etm_analyze.bat"
+    shell "etm_analyze.bat"
     printf "✅ Analysis complete!\n"
     printf "📄 Files created in trace/ folder:\n"
     printf "   - trace/etm_trace.bin (raw ETM data)\n"

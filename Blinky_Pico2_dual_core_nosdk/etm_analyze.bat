@@ -2,7 +2,7 @@
 REM ETM Trace Analysis Script for Windows
 REM This script ensures proper working directory and paths
 
-cd /d "c:\Users\tabre\Desktop\Pico 2\Blinky_Pico2_dual_core_nosdk"
+cd /d "%~dp0"
 
 REM Create trace directory if it doesn't exist
 if not exist "trace" mkdir "trace"

@@ -1,0 +1,26 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start OpenOCD (RP2350 ARM)",
+            "type": "shell",
+            "command": "${workspaceFolder}/Blinky_Pico2_dual_core_nosdk/Tools/openocd/connect_rp2350_arm.bat",
+            "options": {
+                "cwd": "${workspaceFolder}/Blinky_Pico2_dual_core_nosdk/Tools/openocd"
+            },
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": [],
+            "runOptions": {
+                "instanceLimit": 1
+            }
+        }
+    ]
+}

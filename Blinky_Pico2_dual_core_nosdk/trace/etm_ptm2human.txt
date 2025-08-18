@@ -1,6 +1,8 @@
 Reading trace\etm_trace.bin
 Decode trace stream of ID 0
 Syncing the trace stream...
+Discard
+Conditional flush
 Decoding the trace stream...
 TraceInfo - Cycle count disabled,
             Tracing of conditional non-branch instruction disabled,
@@ -216,8 +218,10 @@ ATOM - N
 Commit - 1
 ATOM - E
 Commit - 1
-Address - Instruction address 0x0000000010000038, Instruction set Aarch32 (ARM)
-Exception - exception type Debug halt, address 0x0000000010000038
+Address - Instruction address 0x0000000010000338, Instruction set Aarch32 (ARM)
+Exception - exception type Debug halt, address 0x0000000010000338
 Conditional flush
 Commit - 1
 Complete decode of the trace stream
+ERROR: First payload byte of async is not correct
+ERROR: Invalid async packet
